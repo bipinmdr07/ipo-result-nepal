@@ -87,7 +87,7 @@ const App = ({
                   return (
                     <Table.Row>
                       <Table.Cell positive={isPositive} negative={isNegative}>{Name || BOID}</Table.Cell>
-                      <Table.Cell positive={isPositive} negative={isNegative}>{BOID}</Table.Cell>
+                      <Table.Cell positive={isPositive} negative={isNegative}>{BOID.substring(0, 3) + '-------' + BOID.substring(10, BOID.length)}</Table.Cell>
                       <Table.Cell positive={isPositive} negative={isNegative}>
                         { loading && <Loader size="tiny" active inline/>}
                         { !loading && !isPositive && !isNegative && !isError && <Icon name="warning" color="yellow"/> }
