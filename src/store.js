@@ -1,4 +1,5 @@
 import thunk from 'redux-thunk';
+import config from 'config';
 import promise from 'redux-promise-middleware';
 import { compose, createStore, applyMiddleware } from 'redux';
 
@@ -8,7 +9,7 @@ import rootReducer from './reducers';
 
 const enhancers = [applyMiddleware(thunk, promise)]
 
-if (process.env.REACT_APP_ENV !== env.PRODUCTION && window.__REDUX_DEVTOOLS_EXTENSION__) {
+if (config.env !== env.PRODUCTION && window.__REDUX_DEVTOOLS_EXTENSION__) {
   enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__())
 }
 
