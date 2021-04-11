@@ -1,0 +1,16 @@
+import { createAction } from 'redux-actions';
+
+import * as ipoService from 'services/ipo';
+
+export const FETCH_SHARE_COMPANIES = 'FETCH_SHARE_COMPANIES';
+export const FETCH_SHARE_COMPANIES_PENDING = 'FETCH_SHARE_COMPANIES_PENDING';
+export const FETCH_SHARE_COMPANIES_REJECTED = 'FETCH_SHARE_COMPANIES_REJECTED';
+export const FETCH_SHARE_COMPANIES_FULFILLED = 'FETCH_SHARE_COMPANIES_FULFILLED';
+
+export const FETCH_ALLOTMENT_RESULT = 'FETCH_ALLOTMENT_RESULT';
+export const FETCH_ALLOTMENT_RESULT_PENDING = 'FETCH_ALLOTMENT_RESULT_PENDING';
+export const FETCH_ALLOTMENT_RESULT_REJECTED = 'FETCH_ALLOTMENT_RESULT_REJECTED';
+export const FETCH_ALLOTMENT_RESULT_FULFILLED = 'FETCH_ALLOTMENT_RESULT_FULFILLED';
+
+export const fetchShareCompanies = createAction(FETCH_SHARE_COMPANIES, ipoService.fetchShareCompanies);
+export const fetchAllotmentResult = createAction(FETCH_ALLOTMENT_RESULT, ipoService.fetchAllotmentResult);
