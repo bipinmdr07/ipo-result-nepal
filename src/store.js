@@ -1,5 +1,6 @@
 import thunk from 'redux-thunk';
 import config from 'config';
+import { persistStore } from 'redux-persist';
 import promise from 'redux-promise-middleware';
 import { compose, createStore, applyMiddleware } from 'redux';
 
@@ -18,4 +19,7 @@ const store = createStore(
   compose(...enhancers)
 );
 
+const persistor = persistStore(store);
+
 export default store;
+export { persistor };

@@ -1,12 +1,14 @@
-import { useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import useGoogleSheets from 'use-google-sheets';
 
 import { fetchShareCompanies, fetchAllotmentResult } from 'actions/data/ipo';
 import { fetchBOIDList, setBOIDList, setBOIDListLoadingState } from 'actions/data/sheet';
-import { Dropdown, Table, Icon, Loader, Dimmer, Segment } from 'semantic-ui-react';
+import { setSheetConfigModalStatus } from 'actions/ui/sheet';
+import { Dropdown, Table, Icon, Loader, Dimmer, Segment, Menu } from 'semantic-ui-react';
 import { isBoolean } from 'lodash';
+import SheetConfigModal from './SheetConfigModal';
 
 import config from 'config';
 
@@ -16,13 +18,18 @@ const App = ({
   fetchBOIDList,
   setBOIDList,
   boidList,
+  sheetConfig,
   fetchAllotmentResult,
+  sheetConfigModalVisible,
   fetchingShareCompanies,
   setBOIDListLoadingState,
+  setSheetConfigModalStatus,
 }) => {
+  const settingsMenu = useRef(null)
+  
   const { data, loading: fetchingBOIDList } = useGoogleSheets({
-    apiKey: config.googleApiKey,
-    sheetId: config.googleSheetId,
+    apiKey: sheetConfig.apiKey,
+    sheetId: sheetConfig.sheetId,
     sheetsNames: [config.googleSheetName]
   })
 
@@ -48,6 +55,22 @@ const App = ({
 
   return (
     <>
+      <Menu icon="labeled">
+        <Menu.Menu position="right">
+          <Menu.Item
+            active
+            ref={settingsMenu}
+            onClick={() => {
+              setSheetConfigModalStatus(true)
+              /* debugger */
+            }}
+          >
+            <Icon name="settings"/>
+            Settings
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+      <SheetConfigModal open={sheetConfigModalVisible} />
       <Dropdown
         placeholder="Select company"
         selection
@@ -113,6 +136,8 @@ const mapStateToProps = (state) => ({
   shareCompanies: state.data.ipo.shareCompanies,
   boidList: state.data.sheet.boidList,
   fetchingShareCompanies: state.ui.ipo.fetchingShareCompanies,
+  sheetConfigModalVisible: state.ui.sheet.sheetConfigModalVisible,
+  sheetConfig: state.data.sheetConfig.sheetConfig
 })
 
 const mapDispatchToProps = {
@@ -121,6 +146,7 @@ const mapDispatchToProps = {
   fetchAllotmentResult,
   setBOIDList,
   setBOIDListLoadingState,
+  setSheetConfigModalStatus,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,20 +1,23 @@
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import React, { StrictMode } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 
-import store from './store';
+import store, { persistor } from './store';
 
 import App from './components/App';
 
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <StrictMode>
-      <App />
-    </StrictMode>
-  </Provider>,
+  <PersistGate persistor={persistor}>
+    <Provider store={store}>
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </Provider>
+  </PersistGate>,
   document.getElementById('root')
 );
 

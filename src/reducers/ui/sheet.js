@@ -4,8 +4,13 @@ import {
   FETCH_BOID_LIST_FULFILLED
 } from 'actions/data/sheet';
 
+import {
+  SET_SHEET_CONFIG_MODAL_STATUS
+}  from 'actions/ui/sheet';
+
 const INITIAL_STATE = {
-  fetchingBOIDList: false
+  fetchingBOIDList: false,
+  sheetConfigModalVisible: false
 }
 
 export default function(state = INITIAL_STATE, action) {
@@ -21,6 +26,12 @@ export default function(state = INITIAL_STATE, action) {
       return {
         ...state,
         fetchingBOIDList: false
+      }
+
+    case SET_SHEET_CONFIG_MODAL_STATUS:
+      return {
+        ...state,
+        sheetConfigModalVisible: action.payload
       }
 
     default:
